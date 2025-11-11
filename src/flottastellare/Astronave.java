@@ -12,6 +12,7 @@ import java.util.ArrayList;
  */
 public class Astronave {
     private String stato, nome;
+    private float salute;
     private ArrayList<Modulo> moduli;
     private ArrayList<MembroEquipaggio> membri;
     
@@ -20,6 +21,7 @@ public class Astronave {
         this.stato = s;
         moduli = new ArrayList<>();
         membri = new ArrayList<>();
+        salute = 100;
     }
     
     public void aggiungiModulo(Modulo m){
@@ -35,18 +37,43 @@ public class Astronave {
     }
     
     public void aggiungiMembro(MembroEquipaggio m){
-        if(!membri.contains(m)) membri.add(m);
+        if(!membri.contains(m)){
+            membri.add(m);
+            m.assegnaAstronave(this);
+        }
     }
     
     public void rimuoviMembro(MembroEquipaggio m){
-        if(membri.contains(m)) membri.remove(m);
+        if(membri.contains(m)){
+            membri.remove(m);
+            m.rimuoveAstronave(this);
+        }
     }
     
-    public ArrayList<MembroEquipaggio> getMembro(){
+    public ArrayList<MembroEquipaggio> getMembri(){
         return membri;
     }
     
     public String getNome(){
         return nome;
+    }
+    
+    public void danni(){
+        salute -= 5;
+        if(salute <= 40){
+            stato = "danneggiato";
+        }
+    }
+    
+    public void cura(Flotta f){
+        if(salute < 100){
+            salute += 10;
+            if(salute > 100){
+                salute = 100;
+            }
+            else if(salute <= 0){
+                f.rimuoviAstronave(this);
+            }
+        }
     }
 }
