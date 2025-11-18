@@ -11,23 +11,26 @@ import java.util.ArrayList;
  * @author lin.elena
  */
 public class Modulo {
-    private String occupazione, nome, stato;
+    private String occupazione, nome;
+    private boolean stato = true;
     private float salute;
-    private ArrayList<String> occupazioni;
-    private ArrayList<String> occupazioniNave;
     
     public Modulo(String occ, String n){
         this.occupazione = occ;
         this.nome = n;
-        occupazioni = new ArrayList<>();
-        occupazioniNave.add("Comando");
-        occupazioniNave.add("Pannello solare");
-        occupazioniNave.add("Motore");
-        occupazioniNave.add("Abitazione");
-        
-        occupazioni.add("Protezione");
-        occupazioni.add("Abitazione");
-        occupazioni.add("Abitazione");
     }
     
+    public void danni(){
+        stato = false;
+        System.out.print("modulo dannaggiato");
+    }
+    
+    public void ripara(){
+        stato = true;
+        System.out.print("modulo riparato");
+    }
+    
+    public boolean getStato(){
+        return stato;
+    }
 }

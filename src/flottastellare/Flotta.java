@@ -5,12 +5,14 @@
 package flottastellare;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
  * @author lin.elena
  */
 public class Flotta {
+    Random r = new Random();
     private ArrayList<Astronave> astronavi;
     
     public Flotta(){
@@ -19,6 +21,7 @@ public class Flotta {
     
     public void aggiungiAstronave(Astronave a){
         if(!astronavi.contains(a)) astronavi.add(a);
+        a.assegnaFlotta(this);
     }
     
     public void rimuoviAstronave(Astronave a){
@@ -27,5 +30,15 @@ public class Flotta {
     
     public ArrayList<Astronave> getAstronavi(){
         return astronavi;
+    }
+    
+    public void alieniABordo(){
+        int i = r.nextInt(0, astronavi.size());
+        astronavi.get(i).alieniABordo();
+    }
+    
+    public void danni(){
+        int i = r.nextInt(0, astronavi.size());
+        astronavi.get(i).danni();
     }
 }

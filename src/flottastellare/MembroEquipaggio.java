@@ -4,12 +4,15 @@
  */
 package flottastellare;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author lin.elena
  */
 public class MembroEquipaggio {
-    private String nome, ruolo, stato;
+    private String nome, ruolo;
+    private boolean stato;
     private float salute; 
     private Astronave astronave;
     private ArrayList<String> ruoli;
@@ -19,7 +22,6 @@ public class MembroEquipaggio {
         this.ruolo = r;
         salute = 100; 
     }
-    
     public void assegnaAstronave(Astronave a){
         astronave = a;
     }
@@ -32,21 +34,28 @@ public class MembroEquipaggio {
         return astronave;
     }
     
-    public void cura(MembroEquipaggio m){
-        m.setSaluta();
+    public void cura(){
+        if(astronave.checkMedico()) setSaluta();
+        else{
+            System.out.print("assenza medico");
+        }
     }
     
     public void setSaluta(){
         if(salute < 100){
             salute = 100;
-        }
-        if(salute <= 0){
-                astronave.rimuoviMembro(this);
-        }
+        } 
     }
     
-    public void alieni(){
+    public void alieniABordoMembro(){
+        salute -= 30;
         
-    }
+        if(salute <= 0){
+            astronave.rimuoviMembro(this);
+        }
+    } 
     
+    public String getRuolo(){
+        return ruolo;
+    }
 }

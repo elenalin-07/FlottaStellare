@@ -5,23 +5,30 @@
 package flottastellare;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
  * @author lin.elena
  */
 public class Astronave {
-    private String stato, nome;
+    Random r = new Random();
+    private String nome;
+    private boolean stato = true;
     private float salute;
     private ArrayList<Modulo> moduli;
     private ArrayList<MembroEquipaggio> membri;
+    private Flotta flotta;
     
-    public Astronave(String n, String s){
+    public Astronave(String n){
         this.nome = n;
-        this.stato = s;
         moduli = new ArrayList<>();
         membri = new ArrayList<>();
         salute = 100;
+    }
+    
+    public void assegnaFlotta(Flotta f){
+        flotta = f;
     }
     
     public void aggiungiModulo(Modulo m){
@@ -60,20 +67,52 @@ public class Astronave {
     
     public void danni(){
         salute -= 5;
+        int i = r.nextInt(0, moduli.size());
+        moduli.get(i).danni();
+        
         if(salute <= 40){
-            stato = "danneggiato";
+            stato = false;
+            System.out.print("astronave danneggiato");
+        }
+        
+        if(salute <= 0){
+            flotta.rimuoviAstronave(this);
         }
     }
     
-    public void cura(Flotta f){
+    public void cura(){
         if(salute < 100){
             salute += 10;
             if(salute > 100){
                 salute = 100;
             }
-            else if(salute <= 0){
-                f.rimuoviAstronave(this);
+        }
+    }
+    
+    public void alieniABordo(){
+        int i = r.nextInt(0, membri.size());
+        membri.get(i).alieniABordoMembro();
+    }
+    
+    public void ripara(Modulo m){
+        boolean check = false;
+        int i = 0;
+        while(!check || i < membri.size()){
+            if(membri.get(i).getRuolo() == "ingenieria"){
+                check = true;
+                if(m.getStato() == false) m.ripara();
+            }
+            i++;
+        }
+        if(!check) System.out.print("assenza ingenieria");
+    }
+    
+    public boolean checkMedico(){
+        for(int i = 0; i < membri.size(); i++){
+            if(membri.get(i).getRuolo() == "medico"){
+                return true;
             }
         }
+        return false;
     }
 }
