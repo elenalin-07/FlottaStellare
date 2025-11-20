@@ -11,13 +11,18 @@ import java.util.ArrayList;
  * @author lin.elena
  */
 public class MembroEquipaggio {
-    private String nome, ruolo;
+    private String nome;
+    private Ruoli ruolo;
     private boolean stato;
     private float salute; 
     private Astronave astronave;
     private ArrayList<String> ruoli;
     
-    public MembroEquipaggio(String n, String r){
+    public enum Ruoli{
+        
+    }
+    
+    public MembroEquipaggio(String n, Ruoli r){
         this.nome = n;
         this.ruolo = r;
         salute = 100; 
@@ -55,7 +60,7 @@ public class MembroEquipaggio {
         }
     } 
     
-    public String getRuolo(){
+    public Ruoli getRuolo(){
         return ruolo;
     }
 }

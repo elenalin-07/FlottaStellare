@@ -66,7 +66,7 @@ public class Astronave {
     }
     
     public void danni(){
-        salute -= 5;
+        salute -= 10;
         int i = r.nextInt(0, moduli.size());
         moduli.get(i).danni();
         
@@ -98,7 +98,7 @@ public class Astronave {
         boolean check = false;
         int i = 0;
         while(!check || i < membri.size()){
-            if(membri.get(i).getRuolo() == "ingenieria"){
+            if(Ruoli.ingenieria.equals(membri.get(i).getRuolo())){
                 check = true;
                 if(m.getStato() == false) m.ripara();
             }
@@ -109,7 +109,7 @@ public class Astronave {
     
     public boolean checkMedico(){
         for(int i = 0; i < membri.size(); i++){
-            if(membri.get(i).getRuolo() == "medico"){
+            if(Ruoli.medico.equals(membri.get(i).getRuolo())){
                 return true;
             }
         }
