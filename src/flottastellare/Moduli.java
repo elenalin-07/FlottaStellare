@@ -6,12 +6,14 @@ package flottastellare;
 
 /**
  *
- * @author lin.elena
+ * @author zxt02
  */
-public enum Ruoli {
-    medico,
-    ingeniere,
-    pilota,
-    soldato,
-    cuoco
+public enum Moduli {
+    motore,
+    pannelloSolare,
+    batteria,
+    antenne,
+    computerDiBordo,
+    arme,
+    armadura
 }

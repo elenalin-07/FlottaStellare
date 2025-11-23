@@ -16,11 +16,6 @@ public class MembroEquipaggio {
     private boolean stato;
     private float salute; 
     private Astronave astronave;
-    private ArrayList<String> ruoli;
-    
-    public enum Ruoli{
-        
-    }
     
     public MembroEquipaggio(String n, Ruoli r){
         this.nome = n;

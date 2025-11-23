@@ -13,7 +13,6 @@ import java.util.ArrayList;
 public class Modulo {
     private String occupazione, nome;
     private boolean stato = true;
-    private float salute;
     
     public Modulo(String occ, String n){
         this.occupazione = occ;
@@ -21,13 +20,21 @@ public class Modulo {
     }
     
     public void danni(){
-        stato = false;
-        System.out.print("modulo dannaggiato");
+        if(stato){
+            stato = false;
+            System.out.print("modulo " + nome + " dannaggiato");
+        }
+        else{
+            System.out.print("modulo " + nome + " distrutto e rimosso dall'astronave");
+        }
     }
     
     public void ripara(){
-        stato = true;
-        System.out.print("modulo riparato");
+        if(!stato){
+            stato = true;
+            System.out.print("modulo " + nome + " riparato");
+
+        }
     }
     
     public boolean getStato(){
