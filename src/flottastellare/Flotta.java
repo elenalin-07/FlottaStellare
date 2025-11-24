@@ -92,4 +92,8 @@ public class Flotta {
                 break;
         }
     }
+    
+    public void stampa(){
+        
+    }
 }

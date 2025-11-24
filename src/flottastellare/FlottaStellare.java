@@ -14,7 +14,11 @@ public class FlottaStellare {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Flotta f = new Flotta();
+        
+        Astronave a1 = new Astronave("Astronave n1121");
+        Astronave a2 = new Astronave("Astronave n252");
+        Astronave a3 = new Astronave("Astronave n913");
     }
     
 }

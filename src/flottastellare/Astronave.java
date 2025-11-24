@@ -72,6 +72,19 @@ public class Astronave {
         return nome;
     }
     
+    public void aumentaMaxSalute(){
+        for(int i = 0; i < membri.size(); i++){
+            membri.get(i).setMaxSalute(20);
+        }
+    }
+    
+    public void diminuiMaxSalute(){
+        for(int i = 0; i < membri.size(); i++){
+            membri.get(i).setMaxSalute(-20);
+            membri.get(i).setSalute();
+        }
+    }
+    
     public void danni(){
         salute -= 10;
         int i = r.nextInt(0, moduli.size());
@@ -81,33 +94,66 @@ public class Astronave {
     }
     
     public void alieniABordo(){
-        int m;
-        salute -= 10;
-        checkSalute();
-        int n = r.nextInt(membri.size());
-        for(int i = 0; i < n; i++){
-            m = r.nextInt(membri.size());
-            membri.get(m).alieniABordoMembro();
+        if(!checkSoldato()){
+            int m;
+            salute -= 10;
+            checkSalute();
+            int n = r.nextInt(membri.size());
+            System.out.print("l'attacco degli alieni a bordo ha cusato i danni a " + n + " membri dell'equipaggio");
+            for(int i = 0; i < n; i++){
+                m = r.nextInt(membri.size());
+                membri.get(m).alieniABordoMembro();
+            }
         }
+        else System.out.print("soldato ha sconfitto gli alieni");
     }
     
-    public void ripara(Modulo m){
+    public void riparaModulo(Modulo m){
         boolean check = false;
         int i = 0;
         while(!check || i < membri.size()){
             if(Ruoli.ingeniere.equals(membri.get(i).getRuolo())){
-                check = true;
-                if(m.getStato() == false) m.ripara();
+                if(membri.get(i).getStato()) {
+                    check = true;
+                    if(m.getStato() == false) m.ripara();
+                }
+                else System.out.print("ingenere " + membri.get(i).getNome() + " in stato non operativo");
             }
             i++;
         }
-        if(!check) System.out.print("assenza ingenieria");
+        if(!check) System.out.print("assenza ingeniere");
+    }
+    
+    public void riparaAstronave(){
+         boolean check = false;
+        int i = 0;
+        while(!check || i < membri.size()){
+            if(Ruoli.ingeniere.equals(membri.get(i).getRuolo())){
+                check = true;
+                if(!stato) {
+                    stato = true;
+                }   salute = maxSalute;
+            }
+            i++;
+        }
+        if(!check) System.out.print("assenza ingeniere");
     }
     
     public boolean checkMedico(){
         for(int i = 0; i < membri.size(); i++){
             if(Ruoli.medico.equals(membri.get(i).getRuolo())){
-                return true;
+                if(membri.get(i).getStato()) return true;
+                else System.out.print("medico " + membri.get(i).getNome() + " in stato non operativo");
+            }
+        }
+        return false;
+    }
+    
+    public boolean checkSoldato(){
+        for(int i = 0; i < membri.size(); i++){
+            if(Ruoli.soldato.equals(membri.get(i).getRuolo())){
+                if(membri.get(i).getStato()) return true;
+                else System.out.print("soldato " + membri.get(i).getNome() + " in stato non operativo");
             }
         }
         return false;
