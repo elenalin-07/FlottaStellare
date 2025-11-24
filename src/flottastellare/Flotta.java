@@ -44,28 +44,26 @@ public class Flotta {
     
     public void guastiAiModuli(){
         int na = r.nextInt(astronavi.size());
-        System.out.print(na + " astronavi hanno subito i guasti ai moduli");
+        System.out.println(na + " astronavi hanno subito i guasti ai moduli");
         int a;
         for(int i = 0; i < na; i++){
             a = r.nextInt(astronavi.size());
-            System.out.print("astronave: " + astronavi.size());
             astronavi.get(a).guastiAiModuli();
         }
     }
     
     public void meteoriti(){
         int na = r.nextInt(astronavi.size());
-        System.out.print(na + " astronavi sono entrati in collisione con merìteoriti e hanno subito i danni");
+        System.out.println(na + " astronavi sono entrati in collisione con meteoriti e hanno subito i danni");
         int a;
         for(int i = 0; i < na; i++){
             a = r.nextInt(astronavi.size());
-            System.out.print("astronave: " + astronavi.size());
             astronavi.get(a).meteoriti();
         }
     }
     
     public void stazioneSpaziale(){
-        System.out.print("La flotta ha raggiunto la stazione spaziale di supporto: tutti i moduli e le astronavi vengono riparati e riforniti, pronti per la prossima missione");
+        System.out.println("La flotta ha raggiunto la stazione spaziale di supporto: tutti i moduli e le astronavi vengono riparati e riforniti, pronti per la prossima missione");
         for(int i = 0; i< astronavi.size(); i++){
             astronavi.get(i).stazioneSpaziale();
         }
@@ -94,6 +92,10 @@ public class Flotta {
     }
     
     public void stampa(){
-        
+        System.out.println("informazione sulla flotta:");
+        System.out.println("il numero degli astronavi: " + astronavi.size());
+        for(Astronave a : astronavi){
+            a.stampa();
+        }
     }
 }

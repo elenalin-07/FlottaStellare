@@ -42,7 +42,7 @@ public class Astronave {
         }
     }
     
-    public void rimuoviModulo(Modulo m){
+    public void rimuoviModulo(Moduli m){
         if(moduli.contains(m)) moduli.remove(m);
     }
     
@@ -54,6 +54,7 @@ public class Astronave {
         if(!membri.contains(m)){
             membri.add(m);
             m.assegnaAstronave(this);
+            if(m.getRuolo().equals(Ruoli.cuoco)) this.aumentaMaxSalute();
         }
     }
     
@@ -86,6 +87,8 @@ public class Astronave {
     }
     
     public void danni(){
+        System.out.println(nome + " ha subito i danni: ");
+        System.out.println("salute: -10");
         salute -= 10;
         int i = r.nextInt(0, moduli.size());
         moduli.get(i).danni();
@@ -99,13 +102,13 @@ public class Astronave {
             salute -= 10;
             checkSalute();
             int n = r.nextInt(membri.size());
-            System.out.print("l'attacco degli alieni a bordo ha cusato i danni a " + n + " membri dell'equipaggio");
+            System.out.println("l'attacco degli alieni a bordo ha cusato i danni a " + n + " membri dell'equipaggio");
             for(int i = 0; i < n; i++){
                 m = r.nextInt(membri.size());
                 membri.get(m).alieniABordoMembro();
             }
         }
-        else System.out.print("soldato ha sconfitto gli alieni");
+        else System.out.println("soldato ha sconfitto gli alieni");
     }
     
     public void riparaModulo(Modulo m){
@@ -117,11 +120,11 @@ public class Astronave {
                     check = true;
                     if(m.getStato() == false) m.ripara();
                 }
-                else System.out.print("ingenere " + membri.get(i).getNome() + " in stato non operativo");
+                else System.out.println("ingenere " + membri.get(i).getNome() + " in stato non operativo");
             }
             i++;
         }
-        if(!check) System.out.print("assenza ingeniere");
+        if(!check) System.out.println("assenza ingeniere");
     }
     
     public void riparaAstronave(){
@@ -136,14 +139,14 @@ public class Astronave {
             }
             i++;
         }
-        if(!check) System.out.print("assenza ingeniere");
+        if(!check) System.out.println("assenza ingeniere");
     }
     
     public boolean checkMedico(){
         for(int i = 0; i < membri.size(); i++){
             if(Ruoli.medico.equals(membri.get(i).getRuolo())){
                 if(membri.get(i).getStato()) return true;
-                else System.out.print("medico " + membri.get(i).getNome() + " in stato non operativo");
+                else System.out.println("medico " + membri.get(i).getNome() + " in stato non operativo");
             }
         }
         return false;
@@ -153,7 +156,7 @@ public class Astronave {
         for(int i = 0; i < membri.size(); i++){
             if(Ruoli.soldato.equals(membri.get(i).getRuolo())){
                 if(membri.get(i).getStato()) return true;
-                else System.out.print("soldato " + membri.get(i).getNome() + " in stato non operativo");
+                else System.out.println("soldato " + membri.get(i).getNome() + " in stato non operativo");
             }
         }
         return false;
@@ -164,7 +167,7 @@ public class Astronave {
         int m;
         for(int i = 0; i < nm; i++){
             m = r.nextInt(moduli.size());
-            System.out.print("il modulo: " + moduli.get(m) + "e' danneggiato e viene rimosso dall'astronave");
+            System.out.println("il modulo: " + moduli.get(m) + "e' danneggiato e viene rimosso dall'astronave");
             moduli.remove(moduli.get(m));
         }
     }
@@ -172,11 +175,11 @@ public class Astronave {
     public void checkSalute(){
         if(salute <= 40){
             stato = false;
-            System.out.print("astronave danneggiato");
+            System.out.println("astronave danneggiato");
         }
         
         if(salute <= 0){
-            System.out.print("astrpnave e' distrutto e rimosso dalla flotta");
+            System.out.println("astrpnave e' distrutto e rimosso dalla flotta");
             flotta.rimuoviAstronave(this);
         }
     }
@@ -184,7 +187,8 @@ public class Astronave {
     public void meteoriti(){
         int danno = r.nextInt(20, 50);
         salute -= danno;
-        System.out.print("salute: -" + danno);
+        System.out.println(nome);
+        System.out.println("salute: -" + danno);
         checkSalute();
     }
     
@@ -192,6 +196,18 @@ public class Astronave {
         salute = maxSalute;
         for(int i = 0; i < moduli.size(); i++){
             moduli.get(i).ripara();
+        }
+    }
+    
+    public void stampa(){
+        System.out.println("\nnome " + nome + "\nstato: " + stato + "\nsalute: " + salute + "/" + maxSalute + "\nil numero dei moduli: " + moduli.size());
+        for(Modulo m : moduli){
+            m.stampa();
+        }
+        
+        System.out.println("\nil numero dei membri dell'equipaggio: " + membri.size());
+        for(MembroEquipaggio e : membri){
+            e.stampa();
         }
     }
 }

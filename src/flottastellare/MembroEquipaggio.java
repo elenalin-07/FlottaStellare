@@ -22,7 +22,6 @@ public class MembroEquipaggio {
     public MembroEquipaggio(String n, Ruoli r){
         this.nome = n;
         this.ruolo = r;
-        if(r.equals(Ruoli.cuoco)) astronave.aumentaMaxSalute();
         maxSalute = 100; 
         salute = maxSalute;
         stato = true;
@@ -50,7 +49,7 @@ public class MembroEquipaggio {
     public void cura(){
         if(astronave.checkMedico()) setSalute();
         else{
-            System.out.print("assenza medico");
+            System.out.println("assenza medico");
         }
     }
     
@@ -64,7 +63,7 @@ public class MembroEquipaggio {
     
     public void alieniABordoMembro(){
         int danno = r.nextInt(30, 51);
-        System.out.print("membro: " + nome + "\nruolo: " + ruolo + "\nha subito i danni: -" + danno);
+        System.out.println("membro: " + nome + "\nruolo: " + ruolo + "\nha subito i danni: salute-" + danno);
         salute -= danno;
         checkSalute();
     } 
@@ -76,11 +75,15 @@ public class MembroEquipaggio {
     public void checkSalute(){
         if(salute < 20) {
             stato = false;
-            System.out.print("membro: " + nome + "\nruolo: " + ruolo + "\nsatato: non operativo");
+            System.out.println("membro: " + nome + "\nruolo: " + ruolo + "\nsatato: non operativo");
         }
         if(salute <= 0) {
             astronave.rimuoviMembro(this);
-            System.out.print("membro: " + nome + "\nruolo: " + ruolo + "\nè morto e viene rimosso dall'astronave");
+            System.out.println("membro: " + nome + "\nruolo: " + ruolo + "\nè morto e viene rimosso dall'astronave");
         }
+    }
+    
+    public void stampa(){
+        System.out.println("\nnome: " + nome + "\nstato: " + stato + "\nsalute: " + salute + "/" + maxSalute);
     }
 }

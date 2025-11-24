@@ -11,33 +11,36 @@ import java.util.ArrayList;
  * @author lin.elena
  */
 public class Modulo {
-    private String occupazione, nome;
+    private String nome;
     private boolean stato = true;
     
-    public Modulo(String occ, String n){
-        this.occupazione = occ;
-        this.nome = n;
+    public Modulo(Moduli n){
+        this.nome = n.toString();
     }
     
     public void danni(){
         if(stato){
             stato = false;
-            System.out.print("modulo " + nome + " dannaggiato");
+            System.out.println("modulo " + nome + " dannaggiato");
         }
         else{
-            System.out.print("modulo " + nome + " distrutto e rimosso dall'astronave");
+            System.out.println("modulo " + nome + " distrutto e rimosso dall'astronave");
         }
     }
     
     public void ripara(){
         if(!stato){
             stato = true;
-            System.out.print("modulo " + nome + " riparato");
+            System.out.println("modulo " + nome + " riparato");
 
         }
     }
     
     public boolean getStato(){
         return stato;
+    }
+    
+    public void stampa(){
+        System.out.println("\nnome: " + nome + "\nstato: " + stato);
     }
 }
