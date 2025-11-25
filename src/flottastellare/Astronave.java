@@ -51,11 +51,13 @@ public class Astronave {
     }
     
     public void aggiungiMembro(MembroEquipaggio m){
-        if(!membri.contains(m)){
+        if(!membri.contains(m) && membri.size() < 10){
             membri.add(m);
             m.assegnaAstronave(this);
             if(m.getRuolo().equals(Ruoli.cuoco)) this.aumentaMaxSalute();
         }
+        else if(membri.size() > 10) System.out.println("astronave full");
+        else if(membri.contains(m)) System.out.println("membro gia' esistente sull'astronave");
     }
     
     public void rimuoviMembro(MembroEquipaggio m){
@@ -90,9 +92,10 @@ public class Astronave {
         System.out.println(nome + " ha subito i danni: ");
         System.out.println("salute: -10");
         salute -= 10;
-        int i = r.nextInt(0, moduli.size());
-        moduli.get(i).danni();
-        
+        if(moduli.size() != 0){
+            int i = r.nextInt(0, moduli.size());
+            moduli.get(i).danni();
+        }
         checkSalute();
     }
     
@@ -163,12 +166,15 @@ public class Astronave {
     }
     
     public void guastiAiModuli(){
-        int nm = r.nextInt(moduli.size());
-        int m;
-        for(int i = 0; i < nm; i++){
-            m = r.nextInt(moduli.size());
-            System.out.println("il modulo: " + moduli.get(m) + "e' danneggiato e viene rimosso dall'astronave");
-            moduli.remove(moduli.get(m));
+        if(moduli.size() != 0)
+        {
+            int nm = r.nextInt(moduli.size());
+            int m;
+            for(int i = 0; i < nm; i++){
+                m = r.nextInt(moduli.size());
+                System.out.println("il modulo: " + moduli.get(m).getNome() + " e' danneggiato e viene rimosso dall'astronave");
+                moduli.remove(moduli.get(m));
+            }
         }
     }
     
@@ -199,8 +205,29 @@ public class Astronave {
         }
     }
     
+    public void nebulosaVivida(){
+        int danno;
+        boolean check = false;
+        for(MembroEquipaggio m : membri){
+            if(Ruoli.pilota.equals(m.getRuolo())) {
+                check = true;
+            }
+        }
+        if(!check){
+            danno = r.nextInt(60, 81);
+            salute -= danno;
+            System.out.println(nome + "\nsalute: -" + danno);
+            if(moduli.size() != 0){
+                int i = r.nextInt(0, moduli.size());
+                moduli.get(i).danni();
+            }
+            checkSalute();
+        }
+    }
+    
     public void stampa(){
-        System.out.println("\nnome " + nome + "\nstato: " + stato + "\nsalute: " + salute + "/" + maxSalute + "\nil numero dei moduli: " + moduli.size());
+        System.out.println("\nnome " + nome + "\nstato: " + stato + "\nsalute: " + salute + "/" + maxSalute);
+        System.out.println("\nil numero dei moduli: " + moduli.size());
         for(Modulo m : moduli){
             m.stampa();
         }
@@ -209,5 +236,6 @@ public class Astronave {
         for(MembroEquipaggio e : membri){
             e.stampa();
         }
+        System.out.println();
     }
 }

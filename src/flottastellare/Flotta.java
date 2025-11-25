@@ -33,17 +33,17 @@ public class Flotta {
     }
     
     public void alieniABordo(){
-        int i = r.nextInt(0, astronavi.size());
+        int i = r.nextInt(astronavi.size());
         astronavi.get(i).alieniABordo();
     }
     
     public void danni(){
-        int i = r.nextInt(0, astronavi.size());
+        int i = r.nextInt(astronavi.size());
         astronavi.get(i).danni();
     }
     
     public void guastiAiModuli(){
-        int na = r.nextInt(astronavi.size());
+        int na = r.nextInt(1, astronavi.size());
         System.out.println(na + " astronavi hanno subito i guasti ai moduli");
         int a;
         for(int i = 0; i < na; i++){
@@ -53,7 +53,7 @@ public class Flotta {
     }
     
     public void meteoriti(){
-        int na = r.nextInt(astronavi.size());
+        int na = r.nextInt(1, astronavi.size());
         System.out.println(na + " astronavi sono entrati in collisione con meteoriti e hanno subito i danni");
         int a;
         for(int i = 0; i < na; i++){
@@ -69,9 +69,20 @@ public class Flotta {
         }
     }
     
+    public void nebulosaVivida(){
+        int na = r.nextInt(1, astronavi.size());
+        System.out.println("La flotta entra nella nebulosa: visibilita' ridotta e sensori disturbati \nLe astronavi senza pilota subiscono danni strutturali");
+        for(Astronave a : astronavi){
+            a.nebulosaVivida();
+        }
+    }
+    
     public void eventiCasuali(){
-        int n = r.nextInt(1, 6);
+        int n = r.nextInt(1, 7);
         switch(n){
+            case 6:
+                nebulosaVivida();
+                break;
             case 5:
                 int yesORno = r.nextInt(1, 3);
                 if(yesORno == 1)stazioneSpaziale();

@@ -36,6 +36,10 @@ public class Modulo {
         }
     }
     
+    public String getNome(){
+        return nome;
+    }
+    
     public boolean getStato(){
         return stato;
     }
